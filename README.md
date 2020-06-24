@@ -1,2 +1,1 @@
-# platzi-podcast
-Curso de Next JS - Platzi
+# Curso de Next JS - Platzi
