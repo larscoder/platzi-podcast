@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default class extends React.Component {
   static async getInitialProps() {
     let req = await fetch('https://api.audioboom.com/channels/recommended');
@@ -13,10 +15,12 @@ export default class extends React.Component {
 
         <div className="channels">
           {channels.map(channel => (
-            <div className="channel">
-              <img src={channel.urls.logo_image.original} alt={channel.title}/>
-              <h2>{channel.title}</h2>
-            </div>
+            <Link href="/channel" prefetch>
+              <a className="channel">
+                <img src={channel.urls.logo_image.original} alt={channel.title}/>
+                <h2>{channel.title}</h2>
+              </a>
+            </Link>
           ))}
         </div>
 
