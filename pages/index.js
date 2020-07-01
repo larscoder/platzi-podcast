@@ -36,8 +36,11 @@ export default class extends React.Component {
           header {
             color: #ffffff;
             background: #8756ca;
-            padding: 15px;
+            height: 50px;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
           .channels {
             display: grid;

@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default class Channel extends React.Component {
   static async getInitialProps({ query }) {
     let idChannel = query.id;
@@ -37,17 +39,19 @@ export default class Channel extends React.Component {
           </div>
         </div>
 
-        <div>
+        <div className="channel-content">
           <h2>Últimos Podcast</h2>
           { audioClips.map((clip, index) => (
-            <div key={index}>
-              { clip.title }
-            </div>
+            <Link href={`/podcast?id=${clip.id}`} key={index}>
+              <a className='link-podcast'>
+                { clip.title }
+              </a>
+            </Link>
           )) }
         </div>
 
         {series &&
-          <div>
+          <div className="channel-content">
             <h2>Series</h2>
             { series.map((serie, index) => (
               <div key={index}>
@@ -69,8 +73,11 @@ export default class Channel extends React.Component {
           header {
             color: #ffffff;
             background: #8756ca;
-            padding: 15px;
+            height: 50px;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
           .channels {
             display: grid;
@@ -113,6 +120,23 @@ export default class Channel extends React.Component {
             bottom: 0;
             color: #ffffff;
             font-weight: bold;
+          }
+          .channel-content {
+            padding: 0 20px;
+          }
+          .link-podcast {
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background-color: rgba(135,86,202,0.1);
+            text-decoration: none;
+            color: #8756ca;
+            transition: .2s all;
+          }
+          .link-podcast:hover {
+            color: #ffffff;
+            background-color: rgba(135,86,202,1);
           }
         `}</style>
       </>
