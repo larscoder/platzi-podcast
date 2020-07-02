@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Layout from '../components/Layout';
 
 export default class Channel extends React.Component {
   static async getInitialProps({ query }) {
@@ -26,8 +27,9 @@ export default class Channel extends React.Component {
     const { channel, audioClips, series } = this.props;
 
     return (
-      <>
-        <header>Podcast</header>
+      <Layout
+        title={`Porcast::${channel.title}`}
+      >
         <div className="box-banner">
           {channel.urls.banner_image.original ?
             <img src={channel.urls.banner_image.original} alt="Banner Podcast" className="banner"/>
@@ -62,45 +64,6 @@ export default class Channel extends React.Component {
         }
 
         <style jsx>{`
-          :global(*) {
-            box-sizing: border-box;
-          }
-          :global(body) {
-            padding: 0;
-            margin: 0;
-            font-family: system-ui;
-          }
-          header {
-            color: #ffffff;
-            background: #8756ca;
-            height: 50px;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          }
-          .channels {
-            display: grid;
-            grid-gap: 15px;
-            padding: 15px;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-          }
-          .channel {
-            display: block;
-            border-radius: 3px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-            margin-bottom:0.5em;
-          }
-          .channel img {
-            width: 100%;
-          }
-          .channel h2 {
-            padding: 5px;
-            font-size: 0.9em;
-            font-weaight: 600;
-            margin: 0;
-            text-align: center;
-          }
           .box-banner {
             width: 100%;
             position: relative;
@@ -139,7 +102,7 @@ export default class Channel extends React.Component {
             background-color: rgba(135,86,202,1);
           }
         `}</style>
-      </>
+      </Layout>
     )
   }
 }

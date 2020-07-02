@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Layout from '../components/Layout';
 
 export default class Podcast extends React.Component {
   static async getInitialProps({ query }) {
@@ -14,8 +15,9 @@ export default class Podcast extends React.Component {
     const { podcast } = this.props;
 
     return (
-      <div className="container">
-        <header>Podcast</header>
+      <Layout
+        title={`Podcast::${podcast.title}`}
+      >
         <div className='modal'>
         <div className='clip'>
           <nav>
@@ -88,7 +90,6 @@ export default class Podcast extends React.Component {
           margin-top: 2em;
           width: 100%;
         }
-
         .modal {
           position: fixed;
           top: 0;
@@ -106,7 +107,7 @@ export default class Podcast extends React.Component {
           background: white;
         }
       `}</style>
-      </div>
+      </Layout>
     )
   }
 }
