@@ -1,30 +1,45 @@
 import Link from 'next/link';
+import Error from 'next/error';
 import Layout from '../components/Layout';
 
 export default class Channel extends React.Component {
-  static async getInitialProps({ query }) {
-    let idChannel = query.id;
+  static async getInitialProps({ query, res }) {
+    try {
+      let idChannel = query.id;
 
-    let [reqChannel, reqAudios, reqSeries] = await Promise.all([
-      fetch(`https://api.audioboom.com/channels/${idChannel}`),
-      fetch(`https://api.audioboom.com/channels/${idChannel}/audio_clips`),
-      fetch(`https://api.audioboom.com/channels/${idChannel}/child_channels`)
-    ]);
+      let [reqChannel, reqAudios, reqSeries] = await Promise.all([
+        fetch(`https://api.audioboom.com/channels/${idChannel}`),
+        fetch(`https://api.audioboom.com/channels/${idChannel}/audio_clips`),
+        fetch(`https://api.audioboom.com/channels/${idChannel}/child_channels`)
+      ]);
 
-    let dataChannel = await reqChannel.json();
-    let channel = dataChannel.body.channel;
+      if (reqChannel.status >= 400 || reqAudios.status >= 400 || reqSeries.status >= 400) {
+        res.statusCode = reqChannel.status;
+        return { channel: null, audioClips: null, series: null, statusCode: reqChannel.status };
+      }
 
-    let dataAudios = await reqAudios.json();
-    let audioClips = dataAudios.body.audio_clips;
+      let dataChannel = await reqChannel.json();
+      let channel = dataChannel.body.channel;
 
-    let dataSeries = await reqSeries.json();
-    let series = dataSeries.body.channels;
+      let dataAudios = await reqAudios.json();
+      let audioClips = dataAudios.body.audio_clips;
 
-    return { channel, audioClips, series };
+      let dataSeries = await reqSeries.json();
+      let series = dataSeries.body.channels;
+
+      return { channel, audioClips, series, statusCode: 200 };
+    } catch (error) {
+      res.statusCode = 503;
+      return { channel: null, audioClips: null, series: null, statusCode: 503 };
+    }
   }
 
   render() {
-    const { channel, audioClips, series } = this.props;
+    const { channel, audioClips, series, statusCode } = this.props;
+
+    if (statusCode !== 200) {
+      return <Error statusCode={statusCode} />
+    }
 
     return (
       <Layout
