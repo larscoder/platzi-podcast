@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Error from 'next/error';
+import Error from './_error';
 import Layout from '../components/Layout';
 
 export default class Channel extends React.Component {

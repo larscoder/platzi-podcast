@@ -1,6 +1,6 @@
 import Layout from '../components/Layout';
 import Channels from '../components/Channels';
-import Error from 'next/error';
+import Error from './_error';
 
 export default class extends React.Component {
   static async getInitialProps({ res }) {

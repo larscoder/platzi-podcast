@@ -1,4 +1,5 @@
-import Link from 'next/link';
+import { Link } from '../routes';
+import slug from '../helpers/slug';
 
 export default class Channels extends React.Component {
   render() {
@@ -8,7 +9,15 @@ export default class Channels extends React.Component {
       <>
         <div className="channels">
           {channels.map((channel, index) => (
-            <Link href={`/channel?id=${channel.id}`} prefetch key={index}>
+            <Link
+              route="channel"
+              params={{
+                slug: slug(channel.title),
+                id: channel.id
+              }}
+              prefetch
+              key={index}
+            >
               <a className="channel">
                 <img src={channel.urls.logo_image.original} alt={channel.title}/>
                 <h2>{channel.title}</h2>
