@@ -6,6 +6,8 @@ App de Pordcast integrada con la API de AudioNoom para aprendert Next.JS
 ![Captura de la App - Detalle Podcast](./.readme-static/screen-02.png)
 ![Captura de la App - Reproductor](./.readme-static/screen-03.png)
 
+[Ver la aplicación](https://platzi-podcast-lars.vercel.app/)
+
 ## ¿Cómo funciona?
 
 Requirer Node.JS 10
